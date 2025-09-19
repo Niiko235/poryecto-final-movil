@@ -1,3 +1,9 @@
-# proyecto_final_movil
+# steps install dependencies 
+- flutter clean
+- flutter pub get 
+- flutter pub upgrade
 
-A new Flutter project.
+
+# Generate Apk 
+- flutter apk --release
+
