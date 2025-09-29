@@ -9,14 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    # Módulos auxiliares
-    connectivity_plus: ^6.1.3       # Manejo de conectividad (WiFi, datos móviles, etc.)
-    go_router: ^16.2.1              # Navegación y enrutamiento de páginas
-    http: ^1.5.0                    # Realización de solicitudes HTTP
-    path_provider: ^2.1.5           # Acceso al sistema de archivos
-    intl: ^0.20.2                   # Internacionalización y formateo de fechas
-    provider: ^6.1.5+1              # Gestión de estado y dependencias
-    carousel_slider: ^5.1.1         # Carrusel de imágenes
+  # Módulos auxiliares
+  connectivity_plus: ^6.1.3       # Manejo de conectividad (WiFi, datos móviles, etc.)
+  go_router: ^16.2.1              # Navegación y enrutamiento de páginas
+  http: ^1.5.0                    # Realización de solicitudes HTTP
+  path_provider: ^2.1.5           # Acceso al sistema de archivos
+  intl: ^0.20.2                   # Internacionalización y formateo de fechas
+  provider: ^6.1.5+1              # Gestión de estado y dependencias
+  carousel_slider: ^5.1.1         # Carrusel de imágenes
+  font_awesome_flutter: ^10.0.0   # Iconos 
 
 dev_dependencies:
   flutter_test:
