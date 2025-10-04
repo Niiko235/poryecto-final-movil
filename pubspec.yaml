@@ -17,7 +17,7 @@ dependencies:
   intl: ^0.20.2                   # Internacionalización y formateo de fechas
   provider: ^6.1.5+1              # Gestión de estado y dependencias
   carousel_slider: ^5.1.1         # Carrusel de imágenes
-  font_awesome_flutter: ^10.0.0   # Iconos 
+  font_awesome_flutter: ^10.7.0   # Iconos 
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-# steps install dependencies 
+# steps install dependencies
 - flutter clean
 - flutter pub get 
 - flutter pub upgrade
