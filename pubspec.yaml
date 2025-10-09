@@ -29,7 +29,7 @@ flutter:
 
 
   assets:
-    - assets/images
+    - assets/default_image.jpg
     - assets/image_fail.jpg
     - assets/image_principal.png
     - lib/src/Data/Local/list_projects.json
