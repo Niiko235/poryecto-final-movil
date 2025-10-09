@@ -49,7 +49,7 @@ class CardPointSampleSampling extends StatelessWidget {
                           ),
                           Text("Encargado: Juan"),
                           Text(
-                            "Especies vistas: ${data['observedSpecies'].lenght}",
+                            "Especies vistas: ${data['observedSpecies']?.length ?? '0'}",
                           ),
                         ],
                       ),
@@ -71,7 +71,7 @@ class CardPointSampleSampling extends StatelessWidget {
                           "Especies",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text("2"),
+                        Text("${data['observedSpecies']?.length ?? '0'}"),
                       ],
                     ),
                   ),
