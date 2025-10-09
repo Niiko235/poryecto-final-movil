@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:proyecto_final_movil/Global/Widgets/card_dashboard.dart';
-// import 'package:proyecto_final_movil/Global/Widgets/card_specie_point.dart';
 import 'package:proyecto_final_movil/src/Data/Local/research_local_list.dart';
 import 'package:proyecto_final_movil/src/UI/Modules/Home/home.dart';
 
@@ -17,13 +15,6 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       home: Scaffold(body: Center(child: Home())),
     );
-
-    // return MaterialApp(
-    //   home: Scaffold(
-    //     appBar: AppBar(title: Text("prueba informacion")),
-    //     body: _listaJson(),
-    //   ),
-    // );
   }
 
   Widget _listaJson() {
