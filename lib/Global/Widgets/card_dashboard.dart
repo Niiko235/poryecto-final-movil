@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Colors/gradients_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
-import 'package:proyecto_final_movil/Global/Widgets/button_dashboard.dart';
+import 'package:proyecto_final_movil/src/UI/Modules/Views/investigation.dart';
 
 class CardDashboard extends StatelessWidget {
-  const CardDashboard({super.key});
+  const CardDashboard({super.key, required this.data});
 
+  final dynamic data;
   final styleTitle = const TextStyle(fontWeight: FontWeight.w900, fontSize: 18);
 
   @override
@@ -25,7 +27,10 @@ class CardDashboard extends StatelessWidget {
             padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("Jan 14, 2024"), Text("Ejecucion")],
+              children: [
+                Text('${data['startDate'] ?? 'sin fecha'}'),
+                Text('Ejecución'),
+              ],
             ),
           ),
 
@@ -37,7 +42,7 @@ class CardDashboard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                "Amazon Rainforest Biodiversity Survey",
+                '${data['name']}',
                 textAlign: TextAlign.center,
                 softWrap: true,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -46,13 +51,13 @@ class CardDashboard extends StatelessWidget {
           ),
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(
                         FontAwesomeIcons.user,
                         color: Colors.black,
@@ -69,11 +74,11 @@ class CardDashboard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
+                    children: [
                       Icon(
                         FontAwesomeIcons.locationDot,
                         color: Colors.black,
@@ -82,7 +87,7 @@ class CardDashboard extends StatelessWidget {
                       SizedBox(width: 5),
                       Flexible(
                         child: Text(
-                          "Amazon basin, Brazil",
+                          '${data['locality']?['city'] ?? '-'}, ${data['locality']?['state'] ?? '-'}',
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.right,
@@ -99,7 +104,34 @@ class CardDashboard extends StatelessWidget {
             padding: EdgeInsets.only(left: 25, right: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [ButtonDashboard()],
+              children: [
+                Container(
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: AppColors.getColor(ListColors.c0),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: TextButton(
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Investigation(uuid: data['uuid']),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Ver más",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

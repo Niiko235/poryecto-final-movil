@@ -19,4 +19,4 @@ class _ProjectJsonProvider {
   }
 }
 
-final listJsonProvider = _ProjectJsonProvider();
+final projectJsonProvider = _ProjectJsonProvider();
