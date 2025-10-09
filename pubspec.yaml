@@ -28,6 +28,8 @@ flutter:
   uses-material-design: true
 
 
-  assets: 
+  assets:
+    - assets/image_fail.jpg
+    - assets/image_principal.png
     - lib/src/Data/Local/list_projects.json
     - lib/src/Data/Local/projects.json
