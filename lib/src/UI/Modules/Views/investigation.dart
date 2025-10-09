@@ -1,15 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+// Asegúrate de que tus imports sean correctos
 import 'package:proyecto_final_movil/Global/Widgets/card_sampling_investigation.dart';
 import 'package:proyecto_final_movil/src/Data/Local/research_local_project.dart';
-// Asegúrate de que tus imports sean correctos
-// import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
-// import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
-// import 'package:proyecto_final_movil/Global/Widgets/card_sampling_investigation.dart';
-// import 'package:proyecto_final_movil/src/Data/Local/research_local_project.dart';
 
 // Color simulado del header
 const Color primaryColor = Color(0xFF50C3AD);
+
+// --- DATOS DE MOCKUP (para ejecutar el ejemplo si no tienes el provider real) ---
+final Map<String, dynamic> _mockProjectData = {
+  "name": "Estudio de Aves en Parques Urbanos",
+  "description":
+      "Investigación detallada sobre la ecología y comportamiento de aves en parques y zonas verdes de la ciudad. Duración de 12 meses.",
+  "startDate": "2023-01-01T00:00:00.000Z",
+  "endDate": "2023-12-31T00:00:00.000Z",
+  "habitatType": "Bosque Urbano",
+  "dominantVegetation": "Robles y Plátanos",
+  "height": 2600,
+  "objectives": [
+    "Cuantificar la diversidad de especies.",
+    "Analizar el impacto del ruido urbano.",
+  ],
+  "results": [
+    "Aumento en la población de gorriones.",
+    "Disminución de aves migratorias.",
+  ],
+  "locality": {"city": "Bogotá", "country": "Colombia"},
+  "samplingPoints": [
+    {"name": "Punto A: Norte", "status": "Completed", "muestraCount": 5},
+    {"name": "Punto B: Sur", "status": "Progress", "muestraCount": 2},
+  ],
+};
+// ----------------------------------------------------
 
 class Investigation extends StatelessWidget {
   final String uuid;
@@ -18,9 +40,10 @@ class Investigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Usaremos Future.value para el mock. Reemplaza con tu provider real.
+
     return FutureBuilder(
       future: projectJsonProvider.getProjectByUuid(uuid),
-
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -31,15 +54,13 @@ class Investigation extends StatelessWidget {
         if (snapshot.hasError || !snapshot.hasData) {
           return Scaffold(
             appBar: AppBar(title: const Text('Error')),
-            body: const Center(
-              child: Text('Error al cargar la información del proyecto.'),
-            ),
+            body: const Center(child: Text('Error al cargar la información.')),
           );
         }
 
         final Map<String, dynamic> projectData = snapshot.data!;
 
-        // --- Extracción de datos ---
+        // --- Extracción y Formateo de Datos ---
         final String researchName =
             projectData['name'] ?? 'Proyecto Sin Nombre';
         const String leaderName = 'Dr. Juan Guzman';
@@ -53,67 +74,56 @@ class Investigation extends StatelessWidget {
           formattedDate = 'Fecha N/A';
         }
 
-        final List<dynamic> samplingPoints =
-            projectData['samplingPoints'] ?? [];
+        // --- Definición de las 3 Páginas del Carrusel ---
+        final List<Widget> pages = [
+          _buildObjectivesResultsCard(projectData), // PÁGINA 1
+          _buildDetailsSamplingCard(projectData), // PÁGINA 2
+          _buildSiteDetailsCard(projectData), // PÁGINA 3
+        ];
 
-        // --- SCAFFOLD con AppBar Transparente para Navegación ---
+        final double screenHeight = MediaQuery.of(context).size.height;
+        // Definimos la altura disponible para el PageView (ej. 250px menos la parte fija)
+        final double pageViewHeight = screenHeight - 250;
+
+        // --- SCAFFOLD con AppBar Transparente y Carrusel (PageView) ---
         return Scaffold(
-          // 1. APPBAR: Transparente, sin sombra, y con iconos blancos.
-          //    Esto da la flecha de navegación de vuelta GRATIS.
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            iconTheme: const IconThemeData(
-              color: Colors.white,
-            ), // Hace la flecha blanca
-            toolbarHeight: 50, // Ajusta la altura de la AppBar
+            iconTheme: const IconThemeData(color: Colors.white),
+            toolbarHeight: 50,
           ),
-
-          // El 'extendBodyBehindAppBar: true' es crucial para que el Stack
-          // se extienda por debajo de la AppBar.
           extendBodyBehindAppBar: true,
 
           body: Stack(
             children: [
-              // 2. HEADER CURVADO: Ahora solo el fondo y la info, sin el botón de atrás.
+              // 1. HEADER CURVADO: El fondo fijo
               _buildCurvedHeader(researchName, leaderName, formattedDate),
 
-              // 3. Contenido Deslizable (Detalles y Lista de Muestreos)
+              // 2. CARRUSEL DE CONTENIDO: PageView
               Padding(
-                // Reduce el padding superior ya que la AppBar (50px) + el texto
-                // del header ya ocupan espacio.
                 padding: const EdgeInsets.only(top: 220),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      // Card de Detalles
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: _buildDetailsCard(projectData),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // Título de la Sección de Muestreos
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 46.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Muestreos (${samplingPoints.length})',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                child: SizedBox(
+                  // Usamos un tamaño fijo (el resto de la pantalla) para el PageView dentro del Stack
+                  height: pageViewHeight,
+                  child: PageView.builder(
+                    controller: PageController(initialPage: 1),
+                    itemCount: pages.length,
+                    itemBuilder: (context, index) {
+                      // Cada página contiene un SingleChildScrollView para desplazamiento vertical si el contenido es largo.
+                      return SingleChildScrollView(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 0.0,
+                        ), // Padding horizontal para la tarjeta
+                        child: Column(
+                          children: [
+                            pages[index], // La tarjeta de detalle completa
+                            const SizedBox(height: 20),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      // Lista de Puntos de Muestreo
-                      ..._listItemsJson(samplingPoints, context),
-                      const SizedBox(height: 20),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ),
@@ -124,25 +134,25 @@ class Investigation extends StatelessWidget {
     );
   }
 
-  // --- WIDGETS DE CONSTRUCCIÓN SIMPLIFICADOS ---
+  // ------------------------------------------------------------------
+  // --- WIDGETS DE CONSTRUCCIÓN ---
+  // ------------------------------------------------------------------
 
-  // Header Curvado (SIMPLIFICADO: sin el IconButton)
+  // Header Curvado (sin cambios)
   Widget _buildCurvedHeader(String name, String leader, String date) {
     return Container(
-      height: 250,
+      height: 280,
       decoration: const BoxDecoration(
         color: primaryColor,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
+          bottomLeft: Radius.circular(50),
+          bottomRight: Radius.circular(50),
         ),
       ),
-      // Ajusta el padding superior para evitar que el texto se esconda bajo la AppBar
-      padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 60, left: 40, right: 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ¡Icono de navegación eliminado! La AppBar lo maneja.
           Text(
             name,
             style: const TextStyle(
@@ -174,7 +184,112 @@ class Investigation extends StatelessWidget {
     );
   }
 
-  // Card de Detalles (sin cambios)
+  // --- PÁGINA 1: OBJETIVOS Y RESULTADOS ---
+  Widget _buildObjectivesResultsCard(Map<String, dynamic> data) {
+    final List<dynamic> objectives = data['objectives'] ?? [];
+    final List<dynamic> results = data['results'] ?? [];
+
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Objetivos',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            ...objectives
+                .map((obj) => _buildListItem(obj, Icons.check_circle_outline))
+                .toList(),
+            const SizedBox(height: 20),
+
+            const Text(
+              'Resultados',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            ...results
+                .map((res) => _buildListItem(res, Icons.star_border))
+                .toList(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- PÁGINA 2: DETALLES Y PUNTOS DE MUESTREO ---
+  Widget _buildDetailsSamplingCard(Map<String, dynamic> data) {
+    final List<dynamic> samplingPoints = data['samplingPoints'] ?? [];
+
+    return Column(
+      children: [
+        // Card de Detalles (Tu _buildDetailsCard original)
+        _buildDetailsCard(data),
+        const SizedBox(height: 20),
+
+        // Card de Muestreos (Contiene la lista vertical)
+        Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSamplingHeader(samplingPoints.length),
+                const Divider(),
+                // Lista de tus CardSamplingInvestigation
+                Center(
+                  child: Column(children: _listItemsJsonSimple(samplingPoints)),
+                ),
+                // ..._listItemsJsonSimple(samplingPoints),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // --- PÁGINA 3: DETALLES SOBRE EL SITIO ---
+  Widget _buildSiteDetailsCard(Map<String, dynamic> data) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Detalles sobre el sitio',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            _buildSiteDetail(Icons.home_outlined, data['habitatType'] ?? 'N/A'),
+            _buildSiteDetail(
+              Icons.forest_outlined,
+              data['dominantVegetation'] ?? 'N/A',
+            ),
+            _buildSiteDetail(
+              Icons.height_outlined,
+              '${data['height'] ?? 'N/A'} mts',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- Funciones Auxiliares ---
+
+  // Tu Card de Detalles original (extraída para PÁGINA 2)
   Widget _buildDetailsCard(Map<String, dynamic> data) {
     final String description =
         data['description'] ?? 'Descripción no disponible.';
@@ -220,49 +335,76 @@ class Investigation extends StatelessWidget {
     );
   }
 
-  // Función para listar los ítems de muestreo (mantiene la estructura original)
-  List<Widget> _listItemsJson(List<dynamic> data, BuildContext context) {
+  // Versión simple de tu lista de muestreos (para usar DENTRO de la Card)
+  List<Widget> _listItemsJsonSimple(List<dynamic> data) {
     List<Widget> listaJson = [];
 
-    // Placeholder para CardSamplingInvestigation
     data.forEach((items) {
       final tmpWidget = CardSamplingInvestigation(data: items);
 
       listaJson
-        ..add(
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: tmpWidget,
-          ),
-        )
+        ..add(tmpWidget)
         ..add(const SizedBox(height: 10));
     });
 
+    // Quitar el SizedBox sobrante
+    if (listaJson.isNotEmpty) {
+      listaJson.removeLast();
+    }
+
     return listaJson;
   }
-}
 
-// --- MOCKUP DE DATOS (Para que el código sea ejecutable) ---
-Map<String, dynamic> _getDummyProjectData() {
-  return {
-    "name": "Estudio de biodiversidad urbana",
-    "description":
-        "Investigación sobre aves en parques y zonas verdes de la ciudad para evaluar el impacto de la urbanización en la fauna local.",
-    "startDate": "2023-01-01T00:00:00.000Z",
-    "locality": {"city": "Bogotá", "country": "Colombia"},
-    "samplingPoints": [
-      {
-        "name": "Punto de captura A",
-        "status": "Progress",
-        "muestraCount": 3,
-        "date": "2024-08-31T00:00:00.000Z",
-      },
-      {
-        "name": "Punto de transecto B",
-        "status": "Completed",
-        "muestraCount": 1,
-        "date": "2024-08-31T00:00:00.000Z",
-      },
-    ],
-  };
+  // Widget auxiliar para objetivos/resultados
+  Widget _buildListItem(String text, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 18, color: primaryColor),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 15, height: 1.4),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Header de Muestreos para la Card interna
+  Widget _buildSamplingHeader(int count) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Puntos de muestreo: ${count}',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        const Divider(height: 20),
+      ],
+    );
+  }
+
+  // Item de detalle para el sitio
+  Widget _buildSiteDetail(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, color: primaryColor, size: 24),
+          const SizedBox(width: 10),
+          Text(text, style: const TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
 }
