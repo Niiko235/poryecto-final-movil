@@ -29,9 +29,6 @@ class Dashboard extends StatelessWidget {
     List<Widget> listaJson = [];
 
     data.forEach((items) {
-      {
-        print(items);
-      }
       final tmpWidget = CardDashboard(data: items);
       listaJson
         ..add(Center(child: tmpWidget))

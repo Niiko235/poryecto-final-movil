@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Colors/gradients_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
-import 'package:proyecto_final_movil/Global/Widgets/button.dart';
 
 class CardPointSampleSampling extends StatelessWidget {
   final styleTitle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w900);
-  const CardPointSampleSampling({super.key});
+
+  final dynamic data;
+  const CardPointSampleSampling({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +41,16 @@ class CardPointSampleSampling extends StatelessWidget {
                         children: [
                           Container(
                             margin: EdgeInsets.only(bottom: 6.0),
-                            child: Text("Información", style: styleTitle),
+                            child: Text("Observación", style: styleTitle),
                           ),
                           Text(
-                            "Jan 14, 2024",
+                            "${data['date']}",
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                           Text("Encargado: Juan"),
-                          Text("Especies vistas: 2"),
+                          Text(
+                            "Especies vistas: ${data['observedSpecies'].lenght}",
+                          ),
                         ],
                       ),
                     ),
@@ -79,7 +83,28 @@ class CardPointSampleSampling extends StatelessWidget {
             height: 50,
             width: 340,
             // color: Colors.red,
-            child: Center(child: Button()),
+            child: Center(
+              child: Container(
+                height: 40,
+                width: 150,
+                decoration: BoxDecoration(
+                  color: AppColors.getColor(ListColors.c0),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Center(
+                  child: TextButton(
+                    onPressed: () => print('holi'),
+                    child: const Text(
+                      "Ver más detalles",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             // child: Button(),
           ),
         ],
