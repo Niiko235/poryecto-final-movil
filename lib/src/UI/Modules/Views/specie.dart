@@ -47,7 +47,7 @@ class Specie extends StatelessWidget {
     final String speciesName =
         guacamayaData['species'] ?? 'Especie Desconocida';
     final List<String> images = List<String>.from(
-      guacamayaData['images'] ?? [''],
+      guacamayaData['images'] ?? ['assets/images/default_image.jpg'],
     );
     final Map<String, dynamic> morphology = guacamayaData['morphology'] ?? {};
 
@@ -70,70 +70,142 @@ class Specie extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
+
       // Cuerpo deslizable para todo el contenido
-      body: Padding(
-        padding: const EdgeInsets.only(top: 16.0, left: 36.0, right: 36.0),
-        child: ListView(
-          children: [
-            // 1. Carrusel de Imágenes (PageView)
-            _buildImageCarousel(images, speciesName),
-
-            // 2. Título de la Especie y tags
-            Text(
-              speciesName,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      body: Stack(
+        children: [
+          // 1. Fondo Curvado
+          Container(
+            height: 160, // Altura para cubrir la Card de Ambiente
+            decoration: const BoxDecoration(
+              color: Color(0xFF00916E),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40), // Curva similar al mockup
+                bottomRight: Radius.circular(40), // Curva similar al mockup
+              ),
             ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8.0,
-              children: [
-                _buildTag(guacamayaData['detection'] ?? ''), // Captura-red
-                _buildTag(guacamayaData['stratum'] ?? ''), // Aereo
-              ],
+          ),
+
+          // 2. Contenido Principal (Scrollable)
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 16.0,
+                left: 36.0,
+                right: 36.0,
+              ),
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 1. Carrusel de Imágenes (PageView)
+                  _buildImageCarousel(images, speciesName),
+
+                  // Espacio entre el carrusel y los detalles
+                  const SizedBox(height: 24),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    margin: const EdgeInsets.only(bottom: 24.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // 2. Título de la Especie y tags
+                        Text(
+                          speciesName,
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+
+                        Wrap(
+                          spacing: 8.0,
+                          children: [
+                            _buildTag(
+                              guacamayaData['detection'] ?? '',
+                            ), // Captura-red
+                            _buildTag(guacamayaData['stratum'] ?? ''), // Aereo
+                          ],
+                        ),
+
+                        const SizedBox(height: 24),
+
+                        // 3. Descripción y Observación
+                        _buildSectionTitle('Descripción del Avistamiento'),
+                        _buildDetailText(
+                          'Observación: ',
+                          guacamayaData['observation'] ?? '',
+                        ),
+                        _buildDetailText(
+                          'Actividad: ',
+                          guacamayaData['activity'] ?? '',
+                        ),
+                        _buildDetailText(
+                          'Sustrato: ',
+                          guacamayaData['substrate'] ?? '',
+                        ),
+
+                        const SizedBox(height: 24),
+
+                        // 4. Detalles del Censo
+                        _buildSectionTitle('Detalles del Censo'),
+                        _buildDetailText(
+                          'Abundancia Total: ',
+                          '${guacamayaData['abundance']} individuos',
+                        ),
+                        _buildDetailText(
+                          'Distancia: ',
+                          '${guacamayaData['distance']} metros',
+                        ),
+                        _buildSubSectionTitle('Composición por Sexo'),
+                        _buildDetailText(
+                          'Machos: ',
+                          '${guacamayaData['males']}',
+                        ),
+                        _buildDetailText(
+                          'Hembras: ',
+                          '${guacamayaData['females']}',
+                        ),
+
+                        _buildSubSectionTitle('Composición por Edad'),
+                        _buildDetailText(
+                          'Adultos: ',
+                          '${guacamayaData['numberAdults']}',
+                        ),
+                        _buildDetailText(
+                          'Juveniles: ',
+                          '${guacamayaData['JuvenileCount']}',
+                        ),
+
+                        const SizedBox(height: 24),
+
+                        // 5. Morfología
+                        if (morphology.isNotEmpty) ...[
+                          _buildSectionTitle('Morfología (en cm)'),
+                          _buildMorphologyTable(morphology),
+                        ],
+
+                        const SizedBox(height: 30),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 24),
-
-            // 3. Descripción y Observación
-            _buildSectionTitle('Descripción del Avistamiento'),
-            _buildDetailText(
-              'Observación: ',
-              guacamayaData['observation'] ?? '',
-            ),
-            _buildDetailText('Actividad: ', guacamayaData['activity'] ?? ''),
-            _buildDetailText('Sustrato: ', guacamayaData['substrate'] ?? ''),
-
-            const SizedBox(height: 24),
-
-            // 4. Detalles del Censo
-            _buildSectionTitle('Detalles del Censo'),
-            _buildDetailText(
-              'Abundancia Total: ',
-              '${guacamayaData['abundance']} individuos',
-            ),
-            _buildDetailText(
-              'Distancia: ',
-              '${guacamayaData['distance']} metros',
-            ),
-            _buildSubSectionTitle('Composición por Sexo'),
-            _buildDetailText('Machos: ', '${guacamayaData['males']}'),
-            _buildDetailText('Hembras: ', '${guacamayaData['females']}'),
-
-            _buildSubSectionTitle('Composición por Edad'),
-            _buildDetailText('Adultos: ', '${guacamayaData['numberAdults']}'),
-            _buildDetailText(
-              'Juveniles: ',
-              '${guacamayaData['JuvenileCount']}',
-            ),
-
-            const SizedBox(height: 24),
-
-            // 5. Morfología
-            if (morphology.isNotEmpty) ...[
-              _buildSectionTitle('Morfología (en cm)'),
-              _buildMorphologyTable(morphology),
-            ],
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -172,7 +244,18 @@ class Specie extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   },
                   errorBuilder: (context, error, stackTrace) {
-                    return Center(child: Icon(Icons.broken_image, size: 50));
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.broken_image, size: 50),
+                          Text(
+                            'Imagen no disponible',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 ),
               );
@@ -188,6 +271,10 @@ class Specie extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 // Gradiente para mejorar la legibilidad del texto
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
