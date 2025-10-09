@@ -4,9 +4,22 @@ import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
 
 class DetailsPointSample extends StatelessWidget {
-  const DetailsPointSample({super.key});
+  const DetailsPointSample({
+    super.key,
+    required this.date,
+    required this.temperature,
+    required this.luminosity,
+    required this.overallConditions,
+    required this.precipitation,
+  });
 
   final styleTitle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w900);
+
+  final dynamic date;
+  final dynamic temperature;
+  final dynamic luminosity;
+  final dynamic overallConditions;
+  final dynamic precipitation;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +27,7 @@ class DetailsPointSample extends StatelessWidget {
       width: 300,
       height: 320,
       decoration: BoxDecoration(
-        color: Colors.amber,
+        color: AppColors.getColor(ListColors.c0),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Padding(
@@ -34,7 +47,7 @@ class DetailsPointSample extends StatelessWidget {
                     SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text("Juan"), Text("Jan 23, 2024")],
+                      children: [Text("Juan"), Text("$date")],
                     ),
                   ],
                 ),
@@ -48,7 +61,10 @@ class DetailsPointSample extends StatelessWidget {
                     SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text("Condiciones"), Text("Normal")],
+                      children: [
+                        Text("Condiciones"),
+                        Text("$overallConditions"),
+                      ],
                     ),
                   ],
                 ),
@@ -68,7 +84,7 @@ class DetailsPointSample extends StatelessWidget {
                   size: 30,
                   color: AppColors.getColor(ListColors.darkText),
                 ),
-                Text("Normal"),
+                Text("$luminosity"),
                 Text("Luminosidad"),
               ],
             ),
@@ -87,7 +103,7 @@ class DetailsPointSample extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "28.5°C",
+                        "$temperature°C",
                         style: TextStyle(fontWeight: FontWeight.w900),
                       ),
                       Text("Temperatura"),
@@ -105,7 +121,7 @@ class DetailsPointSample extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "Normal",
+                        "$precipitation",
                         style: TextStyle(fontWeight: FontWeight.w900),
                       ),
                       Text("Precipitacion"),

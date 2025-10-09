@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Colors/gradients_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
-import 'package:proyecto_final_movil/Global/Widgets/Button_point.dart';
+import 'package:proyecto_final_movil/src/UI/Modules/Views/specie.dart';
 
 class CardSpeciePoint extends StatelessWidget {
   final styleTitle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w900);
-  const CardSpeciePoint({super.key});
+
+  final dynamic data;
+  const CardSpeciePoint({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 179,
+      height: 159,
       width: 340,
       decoration: BoxDecoration(
         gradient: AppGradients.getGradient(ListColors.linearBackground),
@@ -31,26 +34,58 @@ class CardSpeciePoint extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    child: Image.network(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiHAHSoIm_cTbXq5WzvqhOhSXJfy__fj3NiA&s",
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.network(
+                        // Intentamos cargar la primera imagen de la lista
+                        '${data['images']?[0] ?? ''}',
+                        fit: BoxFit.cover,
+                        // Si falla o no existe, mostramos una imagen local
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/image_fail.jpg',
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Blue Morpho Butterfly", style: styleTitle),
+                      Text("${data['species'] ?? 'S.N'}", style: styleTitle),
                       Text(
-                        "Blue Morpho Butterfly",
+                        "${data['detection'] ?? 'S.D.'}",
                         style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      Text("Blue Morpho Butterfly"),
-                      Text("Conteo: 3"),
-                      ButtonPoint(),
+                      Text("Conteo: ${data['abundance'] ?? '0'}"),
+                      Container(
+                        height: 30,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          color: AppColors.getColor(ListColors.c0),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: TextButton(
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Specie()),
+                            ),
+                            child: const Text(
+                              "Ver especie",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],

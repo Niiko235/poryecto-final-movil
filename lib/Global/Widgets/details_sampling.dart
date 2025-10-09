@@ -14,7 +14,7 @@ class DetailsSampling extends StatelessWidget {
       width: 300,
       height: 320,
       decoration: BoxDecoration(
-        color: Colors.amber,
+        color: AppColors.getColor(ListColors.c0),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Padding(
