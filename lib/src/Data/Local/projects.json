@@ -1,0 +1,453 @@
+{
+    "projects" : [
+        {
+        "success": true,
+        "count": 5,
+        "data": {
+            "research": {
+            "_id": "688be6ba6ee6b09f9917f5c2",
+            "name": "Estudio de biodiversidad urbana",
+            "description": "Investigación sobre aves en parques de la ciudad",
+            "objectives": [
+                "Objetivo 1",
+                "Objetivo 2"
+            ],
+            "results": [
+                "Resultado preliminar 1"
+            ],
+            "startDate": "2023-01-01T00:00:00.000Z",
+            "endDate": "2023-12-31T00:00:00.000Z",
+            "habitatType": "Urbano",
+            "dominantVegetation": "Bosque de robles",
+            "height": 1200,
+            "coordinates": {
+                "latitude": 4.711,
+                "longitude": -74.0721,
+                "_id": "688be6ba6ee6b09f9917f5c3"
+            },
+            "locality": {
+                "name": "Parque Central",
+                "village": "Vereda 1",
+                "neighborhood": "Centro",
+                "city": "Bogotá",
+                "state": "Cundinamarca",
+                "country": "Colombia",
+                "_id": "688be6ba6ee6b09f9917f5c4"
+            },
+            "leader": {
+                "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+            },
+            "team": [
+                {
+                "uuid": "950b5f20-85d3-47ea-889c-133ecb74c182"
+                }
+            ],
+            "status": "Ejecución",
+            "uuid": "59d22cfe-e749-4d05-95be-b4a3017e6dbc",
+            "createdAt": "2025-07-31T21:57:14.907Z",
+            "updatedAt": "2025-07-31T21:57:14.907Z",
+            "samplingPoints": [
+                {
+                "_id": "688c2b4f8bddcab4e2c0bcc2",
+                "pointNumber": 3,
+                "coordinates": {
+                    "latitude": 1.6610363970634727,
+                    "longitude": -75.62748356372849,
+                    "_id": "688c2b4f8bddcab4e2c0bcc3"
+                },
+                "samplingType": "Punto de captura",
+                "detailSamplingType": null,
+                "detection": "Red",
+                "figure": "Figura 1",
+                "censusPeriod": 30,
+                "fixedRadius": 50,
+                "startDate": "2025-08-01T02:48:11.217Z",
+                "endDate": "2025-08-01T02:48:11.217Z",
+                "research": "688be6ba6ee6b09f9917f5c2",
+                "uuid": "66bec572-2782-4aaf-bd56-6bcf95110831",
+                "createdAt": "2025-08-01T02:49:51.241Z",
+                "updatedAt": "2025-08-01T02:49:51.241Z",
+                "samples": [
+                    {
+                    "_id": "688c2c738bddcab4e2c0bd20",
+                    "date": "2023-01-01T00:00:00.000Z",
+                    "temperature": 20,
+                    "relativeHumidity": 50,
+                    "precipitationState": "Normal",
+                    "cloudCoverage": 50,
+                    "luminosity": "Normal",
+                    "overallConditions": "Bueno",
+                    "collectedBy": {
+                        "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+                    },
+                    "samplingPoint": "688c2b4f8bddcab4e2c0bcc2",
+                    "uuid": "4f6c5858-42dd-4ac2-b50d-825f7d011b99",
+                    "createdAt": "2025-08-01T02:54:43.492Z",
+                    "updatedAt": "2025-08-01T02:54:43.492Z",
+                    "observedSpecies": [
+                        {
+                        "_id": "688c2c838bddcab4e2c0bd2a",
+                        "species": "Guacamaya",
+                        "abundance": 5,
+                        "detection": "Captura-red",
+                        "distance": 10.5,
+                        "males": 2,
+                        "females": 3,
+                        "UndeterminedSexCount": 0,
+                        "numberAdults": 4,
+                        "JuvenileCount": 1,
+                        "activity": "Canto",
+                        "substrate": "Arboreo",
+                        "stratum": "Aereo",
+                        "observation": "Individuo posado en rama alta",
+                        "morphology": {
+                            "billLength": 10.2,
+                            "wingChord": 1,
+                            "tarsusLength": 3,
+                            "tailLength": 4,
+                            "totalLength": 2,
+                            "_id": "688c2c838bddcab4e2c0bd2b"
+                        },
+                        "images": [
+                            "https://api-bird-field-logs.coderhub.run/public/species/584ef8dd-ffdc-472c-84f7-b1d4541f98b7.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/82171fa6-7d65-4823-93ea-df26a941cf54.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/408a112d-e392-4fbc-911b-2bb70282d519.jpg"
+                        ],
+                        "sample": "688c2c738bddcab4e2c0bd20",
+                        "uuid": "afd7d1d8-62cc-4fe6-bdcb-d8e56b0a7932",
+                        "createdAt": "2025-08-01T02:54:59.749Z",
+                        "updatedAt": "2025-08-01T02:54:59.749Z"
+                        }
+                    ]
+                    }
+                ]
+                },
+                {
+                "_id": "688c2ab98bddcab4e2c0bcb6",
+                "pointNumber": 2,
+                "coordinates": {
+                    "latitude": 1.6546875849194205,
+                    "longitude": -75.67572040771917,
+                    "_id": "688c2ab98bddcab4e2c0bcb7"
+                },
+                "samplingType": "Punto de observación",
+                "detailSamplingType": "Extensivo",
+                "detection": "Visual",
+                "figure": null,
+                "censusPeriod": 30,
+                "fixedRadius": 50,
+                "startDate": "2025-08-01T02:46:18.067Z",
+                "endDate": "2025-08-01T02:46:18.067Z",
+                "research": "688be6ba6ee6b09f9917f5c2",
+                "uuid": "1f3f180c-0847-41fb-8dc3-2f51dd3fa499",
+                "createdAt": "2025-08-01T02:47:21.858Z",
+                "updatedAt": "2025-08-01T02:47:21.858Z",
+                "samples": [
+                    {
+                    "_id": "688c2ba68bddcab4e2c0bcef",
+                    "date": "2023-01-01T00:00:00.000Z",
+                    "temperature": 20,
+                    "relativeHumidity": 50,
+                    "precipitationState": "Normal",
+                    "cloudCoverage": 50,
+                    "luminosity": "Normal",
+                    "overallConditions": "Bueno",
+                    "collectedBy": {
+                        "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+                    },
+                    "samplingPoint": "688c2ab98bddcab4e2c0bcb6",
+                    "uuid": "29f43403-6e0b-4da2-98e5-f1f586d65356",
+                    "createdAt": "2025-08-01T02:51:18.143Z",
+                    "updatedAt": "2025-08-01T02:51:18.143Z",
+                    "observedSpecies": [
+                        {
+                        "_id": "688c2c188bddcab4e2c0bd00",
+                        "species": "Guacamaya",
+                        "abundance": 5,
+                        "detection": "Visual",
+                        "distance": 10.5,
+                        "males": 2,
+                        "females": 3,
+                        "UndeterminedSexCount": 0,
+                        "numberAdults": 4,
+                        "JuvenileCount": 1,
+                        "activity": "Canto",
+                        "substrate": "Arboreo",
+                        "stratum": "Aereo",
+                        "observation": "Individuo posado en rama alta",
+                        "morphology": {
+                            "billLength": 10.2,
+                            "wingChord": 1,
+                            "tarsusLength": 3,
+                            "tailLength": 4,
+                            "totalLength": 2,
+                            "_id": "688c2c188bddcab4e2c0bd01"
+                        },
+                        "images": [
+                            "https://api-bird-field-logs.coderhub.run/public/species/01929f2e-2521-4039-84f0-2088eb65edfe.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/58dece84-21fc-4479-a901-9f8d4cc6fc04.jpg"
+                        ],
+                        "sample": "688c2ba68bddcab4e2c0bcef",
+                        "uuid": "105f9306-273f-44a1-9f4b-f056616c5357",
+                        "createdAt": "2025-08-01T02:53:12.082Z",
+                        "updatedAt": "2025-08-01T02:53:12.082Z"
+                        }
+                    ]
+                    }
+                ]
+                },
+                {
+                "_id": "688be6d76ee6b09f9917f5cb",
+                "pointNumber": 1,
+                "coordinates": {
+                    "latitude": 1.5973757757982943,
+                    "longitude": -75.61186237937562,
+                    "_id": "688c28f98bddcab4e2c0bc5d"
+                },
+                "samplingType": "Punto de observación",
+                "detailSamplingType": "Extensivo",
+                "detection": "Visual",
+                "figure": null,
+                "censusPeriod": 30,
+                "fixedRadius": 50,
+                "startDate": "2025-07-31T21:54:47.313Z",
+                "endDate": "2025-07-31T21:54:47.313Z",
+                "research": "688be6ba6ee6b09f9917f5c2",
+                "uuid": "acb5e512-e896-4f9a-acc9-970ae6aea299",
+                "createdAt": "2025-07-31T21:57:43.803Z",
+                "updatedAt": "2025-08-01T02:39:53.666Z",
+                "samples": [
+                    {
+                    "_id": "68b786f43500c017f64ea7ff",
+                    "date": "2025-09-03T00:08:00.000Z",
+                    "temperature": 21,
+                    "relativeHumidity": 21,
+                    "precipitationState": "Normal",
+                    "cloudCoverage": 12,
+                    "luminosity": "Normal",
+                    "overallConditions": "Regular",
+                    "collectedBy": {
+                        "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+                    },
+                    "samplingPoint": "688be6d76ee6b09f9917f5cb",
+                    "uuid": "c969eebf-37e9-460e-911a-312b2057aecf",
+                    "createdAt": "2025-09-03T00:08:20.054Z",
+                    "updatedAt": "2025-09-03T00:08:20.054Z",
+                    "observedSpecies": [
+                        {
+                        "_id": "68b7873f3500c017f64ea813",
+                        "species": "Cardinalis cardinalis",
+                        "abundance": 2,
+                        "detection": "Visual",
+                        "distance": null,
+                        "males": 2,
+                        "females": 2,
+                        "UndeterminedSexCount": 2,
+                        "numberAdults": 2,
+                        "JuvenileCount": 2,
+                        "activity": "Percha",
+                        "substrate": "Herbaceo",
+                        "stratum": "Medio",
+                        "observation": "No aplica.",
+                        "morphology": {
+                            "bill": {
+                            "height": null,
+                            "widthNostrils": null,
+                            "widthCommissure": null,
+                            "curvature": null,
+                            "culmenTotal": null,
+                            "culmenExposed": null
+                            },
+                            "wings": {
+                            "area": null,
+                            "chord": null,
+                            "primarySecondaryDistance": null,
+                            "wingspan": null
+                            },
+                            "legs": {
+                            "halluxClaw": null,
+                            "halluxLength": null,
+                            "tarsusLength": null
+                            },
+                            "tail": {
+                            "length": null,
+                            "graduation": null,
+                            "bodyMass": null
+                            },
+                            "_id": "68b7873f3500c017f64ea814"
+                        },
+                        "images": [
+                            "https://api-bird-field-logs.coderhub.run/public/species/c11bc5a2-7af8-4585-99bf-6681f31e22e4.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/be998253-fce5-4efa-8783-e417301f4521.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/4aac2390-fc88-4310-97bb-6c6cca09368e.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/25306683-2a7d-4168-b2cd-0229f22eb68a.jpg"
+                        ],
+                        "sample": "68b786f43500c017f64ea7ff",
+                        "uuid": "569ec505-d229-4f35-b84c-d231de9e2e65",
+                        "createdAt": "2025-09-03T00:09:35.931Z",
+                        "updatedAt": "2025-09-03T00:09:35.931Z"
+                        }
+                    ]
+                    },
+                    {
+                    "_id": "688be6fd6ee6b09f9917f5d5",
+                    "date": "2023-01-01T00:00:00.000Z",
+                    "temperature": 20,
+                    "relativeHumidity": 50,
+                    "precipitationState": "Normal",
+                    "cloudCoverage": 50,
+                    "luminosity": "Normal",
+                    "overallConditions": "Bueno",
+                    "collectedBy": {
+                        "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+                    },
+                    "samplingPoint": "688be6d76ee6b09f9917f5cb",
+                    "uuid": "cd430906-e551-4b37-9dd1-303c1d699b99",
+                    "createdAt": "2025-07-31T21:58:21.728Z",
+                    "updatedAt": "2025-07-31T21:58:21.728Z",
+                    "observedSpecies": [
+                        {
+                        "_id": "688be7b86ee6b09f9917f5e8",
+                        "species": "Cardinalis cardinalis",
+                        "abundance": 5,
+                        "detection": "Visual",
+                        "distance": 10.5,
+                        "males": 2,
+                        "females": 3,
+                        "UndeterminedSexCount": 0,
+                        "numberAdults": 4,
+                        "JuvenileCount": 1,
+                        "activity": "Canto",
+                        "substrate": "Arboreo",
+                        "stratum": "Aereo",
+                        "observation": "Individuo posado en rama alta",
+                        "morphology": {
+                            "billLength": 10.2,
+                            "wingChord": 1,
+                            "tarsusLength": 3,
+                            "tailLength": 4,
+                            "totalLength": 2,
+                            "_id": "688be7b86ee6b09f9917f5e9"
+                        },
+                        "images": [
+                            "https://api-bird-field-logs.coderhub.run/public/species/fad4d2d3-5d78-4356-a467-3a20c29e301a.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/10abb438-3acf-4f99-b3e2-f769683bd6c8.jfif"
+                        ],
+                        "sample": "688be6fd6ee6b09f9917f5d5",
+                        "uuid": "cf46cb36-5e68-43fc-ba3c-639f0da7c49e",
+                        "createdAt": "2025-07-31T22:01:28.543Z",
+                        "updatedAt": "2025-07-31T22:01:28.543Z"
+                        },
+                        {
+                        "_id": "688be7136ee6b09f9917f5df",
+                        "species": "Cardinalis cardinalis",
+                        "abundance": 5,
+                        "detection": "Visual",
+                        "distance": 10.5,
+                        "males": 2,
+                        "females": 3,
+                        "UndeterminedSexCount": 0,
+                        "numberAdults": 4,
+                        "JuvenileCount": 1,
+                        "activity": "Canto",
+                        "substrate": "Arboreo",
+                        "stratum": "Aereo",
+                        "observation": "Individuo posado en rama alta",
+                        "morphology": {
+                            "billLength": 10.2,
+                            "wingChord": 1,
+                            "tarsusLength": 3,
+                            "tailLength": 4,
+                            "totalLength": 2,
+                            "_id": "688be7136ee6b09f9917f5e0"
+                        },
+                        "images": [
+                            "https://api-bird-field-logs.coderhub.run/public/species/86ded5f2-e3ee-49de-9b86-9b43b7a47878.jpg",
+                            "https://api-bird-field-logs.coderhub.run/public/species/be6449f2-277c-4ebd-b571-0659e1406c3e.jpg"
+                        ],
+                        "sample": "688be6fd6ee6b09f9917f5d5",
+                        "uuid": "0eed85f6-586b-4ab1-afd2-35cde4e2c4e0",
+                        "createdAt": "2025-07-31T21:58:43.521Z",
+                        "updatedAt": "2025-07-31T21:58:43.521Z"
+                        }
+                    ]
+                    }
+                ]
+                }
+            ]
+            }
+        }
+        }, {
+        "success": true,
+        "count": 0,
+        "data": {
+            "research": {
+            "_id": "689276b6b809f482bde4caab",
+            "name": "Estudio de biodiversidad urbana",
+            "description": "Investigación sobre aves en parques de la ciudad",
+            "objectives": [
+                "Objetivo 1",
+                "Objetivo 2"
+            ],
+            "results": [],
+            "startDate": "2023-01-01T00:00:00.000Z",
+            "endDate": "2023-12-31T00:00:00.000Z",
+            "habitatType": "Urbano",
+            "dominantVegetation": "Bosque de robles",
+            "height": 1200,
+            "coordinates": {
+                "latitude": 4.711,
+                "longitude": -74.0721,
+                "_id": "689276b6b809f482bde4caac"
+            },
+            "locality": {
+                "name": "Parque Central",
+                "village": "Vereda 1",
+                "neighborhood": "Centro",
+                "city": "Bogotá",
+                "state": "Cundinamarca",
+                "country": "Colombia",
+                "_id": "689276b6b809f482bde4caad"
+            },
+            "leader": {
+                "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+            },
+            "team": [],
+            "status": "Ejecución",
+            "uuid": "de64ce98-6083-41d3-a137-dc82dc89c1a5",
+            "createdAt": "2025-08-05T21:25:10.931Z",
+            "updatedAt": "2025-08-05T21:25:10.931Z",
+            "samplingPoints": []
+            }
+        }
+        },{
+        "success": true,
+        "count": 0,
+        "data": {
+            "research": {
+            "_id": "6892aeb8b809f482bde4cb66",
+            "name": "Estudio de biodiversidad urbana",
+            "description": null,
+            "objectives": [],
+            "results": [],
+            "startDate": null,
+            "endDate": null,
+            "habitatType": null,
+            "dominantVegetation": null,
+            "height": null,
+            "coordinates": null,
+            "locality": null,
+            "leader": {
+                "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+            },
+            "team": [],
+            "status": "Ejecución",
+            "uuid": "c010084d-2461-4da9-a48e-2674171b7c36",
+            "createdAt": "2025-08-06T01:24:08.088Z",
+            "updatedAt": "2025-08-06T01:24:08.088Z",
+            "samplingPoints": []
+            }
+        }
+        }
+    ]
+}

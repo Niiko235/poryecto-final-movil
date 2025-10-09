@@ -1,0 +1,105 @@
+{
+  "success": true,
+  "count": 3,
+  "data": [
+    {
+      "name": "Estudio de biodiversidad urbana",
+      "description": "Investigación sobre aves en parques de la ciudad",
+      "objectives": [
+        "Objetivo 1",
+        "Objetivo 2"
+      ],
+      "results": [
+        "Resultado preliminar 1"
+      ],
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "habitatType": "Urbano",
+      "dominantVegetation": "Bosque de robles",
+      "height": 1200,
+      "coordinates": {
+        "latitude": 4.711,
+        "longitude": -74.0721,
+        "_id": "688be6ba6ee6b09f9917f5c3"
+      },
+      "locality": {
+        "name": "Parque Central",
+        "village": "Vereda 1",
+        "neighborhood": "Centro",
+        "city": "Bogotá",
+        "state": "Cundinamarca",
+        "country": "Colombia",
+        "_id": "688be6ba6ee6b09f9917f5c4"
+      },
+      "leader": {
+        "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+      },
+      "team": [
+        {
+          "uuid": "950b5f20-85d3-47ea-889c-133ecb74c182"
+        }
+      ],
+      "status": "Ejecución",
+      "uuid": "59d22cfe-e749-4d05-95be-b4a3017e6dbc",
+      "createdAt": "2025-07-31T21:57:14.907Z",
+      "updatedAt": "2025-07-31T21:57:14.907Z"
+    },
+    {
+      "name": "Estudio de biodiversidad urbana",
+      "description": "Investigación sobre aves en parques de la ciudad",
+      "objectives": [
+        "Objetivo 1",
+        "Objetivo 2"
+      ],
+      "results": [],
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "habitatType": "Urbano",
+      "dominantVegetation": "Bosque de robles",
+      "height": 1200,
+      "coordinates": {
+        "latitude": 4.711,
+        "longitude": -74.0721,
+        "_id": "689276b6b809f482bde4caac"
+      },
+      "locality": {
+        "name": "Parque Central",
+        "village": "Vereda 1",
+        "neighborhood": "Centro",
+        "city": "Bogotá",
+        "state": "Cundinamarca",
+        "country": "Colombia",
+        "_id": "689276b6b809f482bde4caad"
+      },
+      "leader": {
+        "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+      },
+      "team": [],
+      "status": "Ejecución",
+      "uuid": "de64ce98-6083-41d3-a137-dc82dc89c1a5",
+      "createdAt": "2025-08-05T21:25:10.931Z",
+      "updatedAt": "2025-08-05T21:25:10.931Z"
+    },
+    {
+      "name": "Estudio de biodiversidad urbana",
+      "description": null,
+      "objectives": [],
+      "results": [],
+      "startDate": null,
+      "endDate": null,
+      "habitatType": null,
+      "dominantVegetation": null,
+      "height": null,
+      "coordinates": null,
+      "locality": null,
+      "leader": {
+        "uuid": "dc7d7ed8-7e6a-4cef-a73c-4ffdeba82d2f"
+      },
+      "team": [],
+      "status": "Ejecución",
+      "uuid": "c010084d-2461-4da9-a48e-2674171b7c36",
+      "createdAt": "2025-08-06T01:24:08.088Z",
+      "updatedAt": "2025-08-06T01:24:08.088Z"
+    }
+  ]
+}

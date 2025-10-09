@@ -26,3 +26,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+
+  assets: 
+    - lib/src/Data/Local/list_projects.json
+    - lib/src/Data/Local/projects.json
