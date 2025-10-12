@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_final_movil/Global/Widgets/card_dashboard.dart';
 import 'package:proyecto_final_movil/src/Data/Local/research_local_list.dart';
+import 'package:proyecto_final_movil/src/Data/Remote/research_remote_list.dart';
 // Asegúrate de que las rutas de importación sean correctas
 // import 'package:proyecto_final_movil/Global/Widgets/card_dashboard.dart';
 // import 'package:proyecto_final_movil/src/Data/Local/research_local_list.dart';
@@ -155,7 +156,7 @@ List<Widget> _listItemsJson(List<dynamic> data, BuildContext context) {
 
 Widget _listaJson() {
   return FutureBuilder(
-    future: listJsonProvider.futureList,
+    future: listRemoteProvider.futureList,
 
     builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
       if (snapshot.hasData) {

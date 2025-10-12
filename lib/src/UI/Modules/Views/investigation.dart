@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 // Asegúrate de que tus imports sean correctos
 import 'package:proyecto_final_movil/Global/Widgets/card_sampling_investigation.dart';
 import 'package:proyecto_final_movil/src/Data/Local/research_local_project.dart';
+import 'package:proyecto_final_movil/src/Data/Remote/research_remote_project.dart';
 
 // Color simulado del header
 const Color primaryColor = Color(0xFF50C3AD);
@@ -43,7 +44,7 @@ class Investigation extends StatelessWidget {
     // Usaremos Future.value para el mock. Reemplaza con tu provider real.
 
     return FutureBuilder(
-      future: projectJsonProvider.getProjectByUuid(uuid),
+      future: projectRemoteProvider.getProjectByUuid(uuid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(

@@ -113,12 +113,17 @@ class CardDashboard extends StatelessWidget {
                   ),
                   child: Center(
                     child: TextButton(
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Investigation(uuid: data['uuid']),
+                      onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Investigation(uuid: data['uuid']),
+                          ),
                         ),
-                      ),
+
+                        print("Navegando a detalles de ${data['uuid']}"),
+                      },
                       child: Center(
                         child: Text(
                           "Ver más",
