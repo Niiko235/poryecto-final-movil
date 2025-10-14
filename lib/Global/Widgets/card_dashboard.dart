@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Colors/gradients_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
@@ -13,8 +14,16 @@ class CardDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate;
+    try {
+      formattedDate = DateFormat(
+        'MMM dd, yyyy',
+      ).format(DateTime.parse(data['startDate']));
+    } catch (e) {
+      formattedDate = 'Fecha N/A';
+    }
+
     return Container(
-      height: 179,
       width: 340,
       decoration: BoxDecoration(
         gradient: AppGradients.getGradient(ListColors.linearBackground),
@@ -27,25 +36,24 @@ class CardDashboard extends StatelessWidget {
             padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('${data['startDate'] ?? 'sin fecha'}'),
-                Text('Ejecución'),
-              ],
+              children: [Text('${formattedDate}'), _buildTag('Ejecución')],
             ),
           ),
 
           Center(
             child: Container(
+              padding: EdgeInsets.all(15),
               width: 340 * 0.66,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
               ),
               child: Text(
                 '${data['name']}',
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.start,
                 softWrap: true,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 26, height: 1.2),
+
               ),
             ),
           ),
@@ -101,7 +109,7 @@ class CardDashboard extends StatelessWidget {
           ),
 
           Padding(
-            padding: EdgeInsets.only(left: 25, right: 25),
+            padding: EdgeInsets.only(left: 25, right: 25, bottom: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -140,6 +148,38 @@ class CardDashboard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  _buildTag(String s) {
+    final sLower = s.toLowerCase();
+    Color backGroundColor;
+    Color textColor;
+
+    switch (sLower) {
+      case 'ejecución':
+        backGroundColor = Colors.pink.shade100;
+        textColor = Colors.pink.shade800;
+        break;
+      default:
+        backGroundColor = Colors.blue.shade300;
+        textColor = Colors.blue.shade900;
+    }
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: backGroundColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        s,
+        style: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
 import 'package:proyecto_final_movil/src/UI/Modules/Views/sampling.dart';
@@ -13,9 +14,18 @@ class CardSamplingInvestigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       String formattedDate;
+        try {
+          formattedDate = DateFormat(
+            'MMM dd, yyyy',
+          ).format(DateTime.parse(data['startDate']));
+        } catch (e) {
+          formattedDate = 'Fecha N/A';
+        }
     return Container(
-      width: 340,
-      height: 225,
+      padding: EdgeInsets.all(10),
+      // width: 340,
+      // height: 225,
       decoration: BoxDecoration(
         color: AppColors.getColor(ListColors.c0),
         borderRadius: BorderRadius.circular(35),
@@ -24,40 +34,42 @@ class CardSamplingInvestigation extends StatelessWidget {
         padding: EdgeInsetsGeometry.all(20),
         child: Row(
           children: [
-            SizedBox(
-              width: 210,
+            Expanded(
+              // width: 210,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Punto de muestro: ${data['pointNumber'] ?? '--'}",
+                    "Punto de muestreo: ${data['pointNumber'] ?? '--'}",
                     style: styleTitle,
                   ),
                   SizedBox(height: 10),
                   Row(
+                    spacing: 10,
                     children: [
                       Icon(
                         FontAwesomeIcons.list,
                         size: 20,
                         color: AppColors.getColor(ListColors.c2),
                       ),
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(left: 10),
-                        child: Text("${data['samplingType'] ?? '--'}"),
+                      Expanded(
+                        // padding: EdgeInsetsGeometry.only(left: 10),
+                        child: Text("${data['samplingType'] ?? '--'}", softWrap: true),
                       ),
                     ],
                   ),
                   SizedBox(height: 10),
                   Row(
+                    spacing: 10,
                     children: [
                       Icon(
                         FontAwesomeIcons.calendar,
                         size: 20,
                         color: AppColors.getColor(ListColors.c2),
                       ),
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(left: 10),
-                        child: Text("${data['startDate'] ?? '--'}"),
+                      Expanded(
+                        // padding: EdgeInsetsGeometry.only(left: 10),
+                        child: Text("${formattedDate}"),
                       ),
                     ],
                   ),
@@ -76,22 +88,23 @@ class CardSamplingInvestigation extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Text("lat ${data['coordinates']?['latitude'] ?? '--'}"),
-                  Text("lon ${data['coordinates']?['longitude'] ?? '--'}"),
+                  Text("Lat: ${data['coordinates']?['latitude'] ?? '--'}", overflow: TextOverflow.ellipsis,),
+                  Text("Lon: ${data['coordinates']?['longitude'] ?? '--'}", overflow: TextOverflow.ellipsis,),
                 ],
               ),
             ),
             SizedBox(
               width: 90,
+              height: 170,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("etiqueta"),
+                  _buildTag('${data['detection'] ?? '--'}'),
                   Container(
-                    height: 30,
+                    height: 50,
                     width: 50,
                     decoration: BoxDecoration(
-                      color: AppColors.getColor(ListColors.c2),
+                      color: AppColors.getColor(ListColors.action),
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Center(
@@ -116,6 +129,42 @@ class CardSamplingInvestigation extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+  
+  _buildTag(String s) {
+    final sLower = s.toLowerCase();
+    Color backGroundColor;
+    Color textColor;
+
+    switch (sLower) {
+      case 'red':
+        backGroundColor = Colors.cyan.shade100;
+        textColor = Colors.cyan.shade800;
+        break;
+      case 'visual':
+        backGroundColor = Colors.red.shade100;
+        textColor = Colors.red.shade800;
+        break;
+      default:
+        backGroundColor = Colors.blue.shade300;
+        textColor = Colors.blue.shade900;
+    }
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: backGroundColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        s,
+        style: TextStyle(
+          color: textColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
         ),
       ),
     );

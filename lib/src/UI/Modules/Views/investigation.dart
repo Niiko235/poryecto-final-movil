@@ -163,7 +163,7 @@ class Investigation extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Row(
+          Wrap(
             children: [
               const Icon(Icons.person, color: Colors.white, size: 18),
               const SizedBox(width: 5),
@@ -171,12 +171,13 @@ class Investigation extends StatelessWidget {
                 leader,
                 style: const TextStyle(color: Colors.white, fontSize: 16),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 15),
               const Icon(Icons.calendar_today, color: Colors.white, size: 16),
               const SizedBox(width: 5),
               Text(
                 date,
                 style: const TextStyle(color: Colors.white, fontSize: 16),
+                softWrap: true,
               ),
             ],
           ),
@@ -244,7 +245,7 @@ class Investigation extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildSamplingHeader(samplingPoints.length),
-                const Divider(),
+                // const Divider(),
                 // Lista de tus CardSamplingInvestigation
                 Center(
                   child: Column(children: _listItemsJsonSimple(samplingPoints)),
@@ -386,7 +387,7 @@ class Investigation extends StatelessWidget {
           children: [
             Text(
               'Puntos de muestreo: ${count}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
