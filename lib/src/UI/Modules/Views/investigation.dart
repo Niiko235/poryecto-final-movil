@@ -142,6 +142,7 @@ class Investigation extends StatelessWidget {
   // Header Curvado (sin cambios)
   Widget _buildCurvedHeader(String name, String leader, String date) {
     return Container(
+      width: double.infinity,
       height: 280,
       decoration: const BoxDecoration(
         color: primaryColor,

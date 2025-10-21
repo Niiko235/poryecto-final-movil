@@ -5,12 +5,12 @@ import 'package:proyecto_final_movil/Global/Widgets/card_point_sample_sampling.d
 import 'package:proyecto_final_movil/Global/Widgets/details_sampling.dart';
 
 class Sampling extends StatelessWidget {
-  final dynamic data;
-
   const Sampling({super.key, required this.data});
-
+  final dynamic data;
   @override
   Widget build(BuildContext context) {
+    print('🟠 Página de Sampling\nData muestreo: ');
+    print('${data}');
     return Scaffold(
       // La AppBar utiliza el color principal
       appBar: AppBar(
@@ -49,7 +49,7 @@ class Sampling extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Card de Condiciones del Ambiente
-                  Center(child: DetailsSampling()),
+                  Center(child: DetailsSampling(data: data,)),
 
                   const SizedBox(height: 24),
 

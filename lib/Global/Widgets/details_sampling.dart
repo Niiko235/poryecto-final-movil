@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
 
 class DetailsSampling extends StatelessWidget {
-  const DetailsSampling({super.key});
-
+  const DetailsSampling({super.key, required this.data});
+  final dynamic data;
   final styleTitle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w900);
 
   @override
   Widget build(BuildContext context) {
+    String startDate, endDate;
+    try {
+      startDate = DateFormat(
+        'MMM dd, yyyy',
+      ).format(DateTime.parse(data['startDate']));
+
+      endDate = DateFormat(
+        'MMM dd, yyyy',
+      ).format(DateTime.parse(data['endDate']));
+    } catch (e) {
+      startDate = 'Fecha N/A';
+      endDate = 'Fecha N/A';
+    }
+
     return Container(
       width: 300,
       height: 320,
@@ -28,7 +43,7 @@ class DetailsSampling extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Sampling 1", style: styleTitle),
+                      Text("Punto ${data['pointNumber']}", style: styleTitle),
                       SizedBox(height: 10),
                       Row(
                         children: [
@@ -42,8 +57,8 @@ class DetailsSampling extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("Coordenadas"),
-                              Text("-12.046°N"),
-                              Text("-70.092°W"),
+                              Text("${data['coordinates']?['latitude']} °N"),
+                              Text("${data['coordinates']?['longitude']} °W"),
                             ],
                           ),
                         ],
@@ -54,7 +69,7 @@ class DetailsSampling extends StatelessWidget {
                 SizedBox(
                   width: 130,
                   child: Column(
-                    children: [Text("Aug 31, 2024"), Text("Dec 31, 2024")],
+                    children: [Text("$startDate"), Text("$endDate")],
                   ),
                 ),
               ],
@@ -62,8 +77,8 @@ class DetailsSampling extends StatelessWidget {
             SizedBox(height: 10),
             Row(
               children: [
-                Text("Lider: ", style: TextStyle(fontWeight: FontWeight.w900)),
-                Text("Dr Juan Guzman"),
+                Text("Tipo de muestra", style: TextStyle(fontWeight: FontWeight.w900)),
+                Text("${data['samplingType']}"),
               ],
             ),
             SizedBox(height: 10),
@@ -73,10 +88,10 @@ class DetailsSampling extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Equipo encargado",
+                      "Detalles de la muestra",
                       style: TextStyle(fontWeight: FontWeight.w900),
                     ),
-                    Text("Equipo alfa Beta Dinamita"),
+                    Text("${data['detailSamplingType'] ?? 'No hay más detalles de la muestra.'}"),
                   ],
                 ),
               ],
@@ -95,7 +110,7 @@ class DetailsSampling extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "Red",
+                        "${data['detection']}",
                         style: TextStyle(fontWeight: FontWeight.w900),
                       ),
                       Text("Deteccion"),
@@ -113,7 +128,7 @@ class DetailsSampling extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "30 dias",
+                        "${data['censusPeriod']} dias",
                         style: TextStyle(fontWeight: FontWeight.w900),
                       ),
                       Text("Periodo"),
