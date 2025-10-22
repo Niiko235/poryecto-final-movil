@@ -14,7 +14,7 @@ class CardPointSampleSampling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 179,
+      // height: 179,
       width: 340,
       decoration: BoxDecoration(
         gradient: AppGradients.getGradient(ListColors.linearBackground),

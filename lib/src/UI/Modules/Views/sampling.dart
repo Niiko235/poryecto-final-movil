@@ -44,7 +44,7 @@ class Sampling extends StatelessWidget {
           // 2. Contenido Principal (Scrollable)
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 26.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

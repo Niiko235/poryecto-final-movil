@@ -33,10 +33,13 @@ class CardDashboard extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 25, right: 25, top: 10, bottom: 10),
+            padding: EdgeInsets.only(left: 25, right: 25, top: 12, bottom: 40),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('${formattedDate}'), _buildTag('Ejecución')],
+              children: [
+                Text('${formattedDate}', style: TextStyle(fontSize: 20)),
+                _buildTag('Ejecución'),
+              ],
             ),
           ),
 
@@ -52,69 +55,65 @@ class CardDashboard extends StatelessWidget {
                 '${data['name']}',
                 textAlign: TextAlign.start,
                 softWrap: true,
-                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 26, height: 1.2),
-
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 26,
+                  height: 1.2,
+                ),
               ),
             ),
           ),
 
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            child: Column(
               children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.user,
-                        color: Colors.black,
-                        size: 15,
+                Row(
+                  children: [
+                    Icon(FontAwesomeIcons.user, color: Colors.black, size: 20),
+                    SizedBox(width: 10),
+                    Flexible(
+                      child: Text(
+                        "Dr. Juan Guzman",
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(width: 5),
-                      Flexible(
-                        child: Text(
-                          "Dr. Juan Guzman",
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.locationDot,
-                        color: Colors.black,
-                        size: 15,
+
+                SizedBox(height: 10),
+
+                Row(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.locationDot,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                    SizedBox(width: 10),
+                    Flexible(
+                      child: Text(
+                        '${data['locality']?['city'] ?? '-'}, ${data['locality']?['state'] ?? '-'}',
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
                       ),
-                      SizedBox(width: 5),
-                      Flexible(
-                        child: Text(
-                          '${data['locality']?['city'] ?? '-'}, ${data['locality']?['state'] ?? '-'}',
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
 
           Padding(
-            padding: EdgeInsets.only(left: 25, right: 25, bottom: 15),
+            padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 100,
+                  width: 250,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: AppColors.getColor(ListColors.c0),
                     borderRadius: BorderRadius.circular(10),

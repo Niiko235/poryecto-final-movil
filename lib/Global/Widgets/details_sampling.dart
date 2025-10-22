@@ -26,8 +26,10 @@ class DetailsSampling extends StatelessWidget {
     }
 
     return Container(
-      width: 300,
-      height: 320,
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      // width: 300,
+      padding: EdgeInsets.all(20),
+      // height: 320,
       decoration: BoxDecoration(
         color: AppColors.getColor(ListColors.c0),
         borderRadius: BorderRadius.circular(30),
@@ -37,9 +39,10 @@ class DetailsSampling extends StatelessWidget {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, 
               children: [
                 SizedBox(
-                  width: 130,
+                  // width: 330,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -98,9 +101,10 @@ class DetailsSampling extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
-                  width: 130,
+                  // width: 130,
                   child: Column(
                     children: [
                       Icon(
@@ -118,7 +122,7 @@ class DetailsSampling extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 130,
+                  // width: 130,
                   child: Column(
                     children: [
                       Icon(
