@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
-import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
 
 class DetailsSampling extends StatelessWidget {
   const DetailsSampling({super.key, required this.data});
+
   final dynamic data;
-  final styleTitle = const TextStyle(fontSize: 18, fontWeight: FontWeight.w900);
 
   @override
   Widget build(BuildContext context) {
+    
     String startDate, endDate;
     try {
       startDate = DateFormat(
         'MMM dd, yyyy',
       ).format(DateTime.parse(data['startDate']));
-
       endDate = DateFormat(
         'MMM dd, yyyy',
       ).format(DateTime.parse(data['endDate']));
@@ -26,124 +24,183 @@ class DetailsSampling extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      // width: 300,
-      padding: EdgeInsets.all(20),
-      // height: 320,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.getColor(ListColors.c0),
-        borderRadius: BorderRadius.circular(30),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12.withValues(alpha: 0.08),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
-      child: Padding(
-        padding: EdgeInsetsGeometry.all(20),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 🟣 ENCABEZADO
+          Container(
+            padding: const EdgeInsets.only(
+              top: 60,
+              left: 30,
+              right: 15,
+            ),
+            
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  // width: 330,
+                Text(
+                  "Punto de muestreo ${data['pointNumber'] ?? '--'}",
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // 📍 INFORMACIÓN PRINCIPAL
+          Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(195, 255, 245, 1),
+                    borderRadius: BorderRadius.all(Radius.circular(14)),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
+                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Punto ${data['pointNumber']}", style: styleTitle),
-                      SizedBox(height: 10),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
+                          const Icon(
                             FontAwesomeIcons.locationDot,
-                            size: 30,
-                            color: AppColors.getColor(ListColors.darkText),
+                            color: Colors.teal,
+                            size: 22,
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Ubicación",
+                                  style: TextStyle(fontWeight: FontWeight.w700),
+                                ),
+                                Text(
+                                  "Lat: ${data['coordinates']?['latitude'] ?? '--'}",
+                                  style: const TextStyle(color: Colors.black54),
+                                ),
+                                Text(
+                                  "Lon: ${data['coordinates']?['longitude'] ?? '--'}",
+                                  style: const TextStyle(color: Colors.black54),
+                                ),
+                              ],
+                            ),
+                          ),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text("Coordenadas"),
-                              Text("${data['coordinates']?['latitude']} °N"),
-                              Text("${data['coordinates']?['longitude']} °W"),
+                              Text(
+                                startDate,
+                                style: const TextStyle(color: Colors.black87),
+                              ),
+                              Text(
+                                endDate,
+                                style: const TextStyle(color: Colors.black54),
+                              ),
                             ],
                           ),
                         ],
                       ),
+                      const SizedBox(height: 15),
+                      // const Divider(),
+
+                      // Tipo de muestra
+                      Row(
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.vial,
+                            color: Colors.teal,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            "Tipo: ",
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                          Text("${data['samplingType'] ?? '--'}"),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+
+                      // Detalles
+                      const Text(
+                        "Detalles de la muestra",
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        "${data['detailSamplingType'] ?? 'No hay más detalles de la muestra.'}",
+                        style: const TextStyle(color: Colors.black87),
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: 130,
-                  child: Column(
-                    children: [Text("$startDate"), Text("$endDate")],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Text("Tipo de muestra", style: TextStyle(fontWeight: FontWeight.w900)),
-                Text("${data['samplingType']}"),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                // Ubicación
+                const SizedBox(height: 25),
+                // const Divider(),
+                const SizedBox(height: 10),
+                // Métricas visuales (detección / periodo)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      "Detalles de la muestra",
-                      style: TextStyle(fontWeight: FontWeight.w900),
+                    _buildMetric(
+                      icon: FontAwesomeIcons.eye,
+                      title: "${data['detection'] ?? '--'}",
+                      subtitle: "Detección",
                     ),
-                    Text("${data['detailSamplingType'] ?? 'No hay más detalles de la muestra.'}"),
+                    _buildMetric(
+                      icon: FontAwesomeIcons.clock,
+                      title: "${data['censusPeriod'] ?? '--'} días",
+                      subtitle: "Periodo",
+                    ),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(
-                  // width: 130,
-                  child: Column(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.eye,
-                        color: AppColors.getColor(ListColors.darkText),
-                        size: 30,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "${data['detection']}",
-                        style: TextStyle(fontWeight: FontWeight.w900),
-                      ),
-                      Text("Deteccion"),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  // width: 130,
-                  child: Column(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.clock,
-                        color: AppColors.getColor(ListColors.darkText),
-                        size: 30,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "${data['censusPeriod']} dias",
-                        style: TextStyle(fontWeight: FontWeight.w900),
-                      ),
-                      Text("Periodo"),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildMetric({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+  }) {
+    return Column(
+      children: [
+        Icon(icon, color: Colors.teal, size: 28),
+        const SizedBox(height: 6),
+        Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
+        ),
+        Text(
+          subtitle,
+          style: const TextStyle(color: Colors.black54, fontSize: 12),
+        ),
+      ],
     );
   }
 }

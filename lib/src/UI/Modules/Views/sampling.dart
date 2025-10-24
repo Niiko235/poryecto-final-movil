@@ -9,8 +9,7 @@ class Sampling extends StatelessWidget {
   final dynamic data;
   @override
   Widget build(BuildContext context) {
-    print('🟠 Página de Sampling\nData muestreo: ');
-    print('${data}');
+    print('🟠 Página de Sampling\nData muestreo mostrado correctamente');
     return Scaffold(
       // La AppBar utiliza el color principal
       appBar: AppBar(
@@ -49,7 +48,7 @@ class Sampling extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Card de Condiciones del Ambiente
-                  Center(child: DetailsSampling(data: data,)),
+                  Center(child: DetailsSampling(data: data)),
 
                   const SizedBox(height: 24),
 
@@ -83,6 +82,7 @@ class Sampling extends StatelessWidget {
 
   List<Widget> _listItemsJson(List<dynamic> data, BuildContext context) {
     List<Widget> listaJson = [];
+    
     data.forEach((items) {
       final tmpWidget = CardPointSampleSampling(data: items);
       listaJson

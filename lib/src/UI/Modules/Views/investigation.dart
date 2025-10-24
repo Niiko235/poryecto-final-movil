@@ -163,23 +163,63 @@ class Investigation extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 18),
           Wrap(
+            spacing: 60,
             children: [
-              const Icon(Icons.person, color: Colors.white, size: 18),
-              const SizedBox(width: 5),
-              Text(
-                leader,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.person, color: Colors.white, size: 26),
+                  const SizedBox(width: 5),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Lider',
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                      ),
+                      Text(
+                        leader,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(width: 15),
-              const Icon(Icons.calendar_today, color: Colors.white, size: 16),
-              const SizedBox(width: 5),
-              Text(
-                date,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-                softWrap: true,
+
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.calendar_today,
+                    color: Colors.white,
+                    size: 26,
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Fecha de inicio',
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                      ),
+                      Text(
+                        date,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                        softWrap: true,
+                      ),
+                    ],
+                  ),
+                ],
               ),
+              
             ],
           ),
         ],
@@ -310,12 +350,12 @@ class Investigation extends StatelessWidget {
           children: [
             const Text(
               'Detalles',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Text(
               description,
-              style: const TextStyle(fontSize: 15, height: 1.4),
+              style: const TextStyle(fontSize: 16, height: 1.4),
             ),
             const SizedBox(height: 15),
             Row(
@@ -383,16 +423,20 @@ class Investigation extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Puntos de muestreo: ${count}',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              'Puntos de muestreo',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Hay ${count} puntos de muestreo disponibles',
+              style: const TextStyle(fontSize: 14, color: Colors.black54),
             ),
           ],
         ),
-        const Divider(height: 20),
+        Container(height: 30),
       ],
     );
   }

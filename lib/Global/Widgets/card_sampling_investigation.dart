@@ -9,155 +9,181 @@ class CardSamplingInvestigation extends StatelessWidget {
   const CardSamplingInvestigation({super.key, required this.data});
 
   final dynamic data;
-
-  final styleTitle = const TextStyle(fontWeight: FontWeight.w900, fontSize: 18);
+  final styleTitle = const TextStyle(
+    fontWeight: FontWeight.w900,
+    fontSize: 20,
+    color: Colors.black87,
+  );
 
   @override
   Widget build(BuildContext context) {
-       String formattedDate;
-        try {
-          formattedDate = DateFormat(
-            'MMM dd, yyyy',
-          ).format(DateTime.parse(data['startDate']));
-        } catch (e) {
-          formattedDate = 'Fecha N/A';
-        }
-    return Container(
-      padding: EdgeInsets.all(10),
-      // width: 340,
-      // height: 225,
-      decoration: BoxDecoration(
-        color: AppColors.getColor(ListColors.c0),
-        borderRadius: BorderRadius.circular(35),
-      ),
-      child: Padding(
-        padding: EdgeInsetsGeometry.all(20),
+    String formattedDate;
+    try {
+      formattedDate = DateFormat(
+        'MMM dd, yyyy',
+      ).format(DateTime.parse(data['startDate']));
+    } catch (e) {
+      formattedDate = 'Fecha N/A';
+    }
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Sampling(data: data),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(35),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.getColor(ListColors.c0), Colors.white],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
         child: Row(
           children: [
             Expanded(
-              // width: 210,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Punto de muestreo: ${data['pointNumber'] ?? '--'}",
+                    "Punto de muestreo ${data['pointNumber'] ?? '--'}",
                     style: styleTitle,
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    spacing: 10,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.list,
-                        size: 20,
-                        color: AppColors.getColor(ListColors.c2),
-                      ),
-                      Expanded(
-                        // padding: EdgeInsetsGeometry.only(left: 10),
-                        child: Text("${data['samplingType'] ?? '--'}", softWrap: true),
-                      ),
-                    ],
+                  const SizedBox(height: 30),
+                  _buildInfo(
+                    FontAwesomeIcons.list,
+                    "Tipo de muestreo",
+                    data['samplingType'] ?? '--',
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    spacing: 10,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.calendar,
-                        size: 20,
-                        color: AppColors.getColor(ListColors.c2),
-                      ),
-                      Expanded(
-                        // padding: EdgeInsetsGeometry.only(left: 10),
-                        child: Text("${formattedDate}"),
-                      ),
-                    ],
+                  _buildInfo(
+                    FontAwesomeIcons.calendar,
+                    "Fecha de inicio",
+                    formattedDate,
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.vial,
-                        size: 20,
-                        color: AppColors.getColor(ListColors.c2),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(left: 10),
-                        child: Text("${data['samples']?.length ?? '0'}"),
-                      ),
-                    ],
+                  _buildInfo(
+                    FontAwesomeIcons.vial,
+                    "Número de muestras",
+                    "${data['samples']?.length ?? '0'}",
                   ),
-                  SizedBox(height: 10),
-                  Text("Lat: ${data['coordinates']?['latitude'] ?? '--'}", overflow: TextOverflow.ellipsis,),
-                  Text("Lon: ${data['coordinates']?['longitude'] ?? '--'}", overflow: TextOverflow.ellipsis,),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Ubicación",
+                    style: TextStyle(color: Colors.black54, fontSize: 14),
+                  ),
+                  Text(
+                    "Lat: ${data['coordinates']?['latitude'] ?? '--'}",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    "Lon: ${data['coordinates']?['longitude'] ?? '--'}",
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
-            SizedBox(
-              width: 90,
-              height: 170,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildTag('${data['detection'] ?? '--'}'),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: AppColors.getColor(ListColors.action),
-                      borderRadius: BorderRadius.circular(40),
+            const SizedBox(width: 25),
+            Column(
+              children: [
+                _buildTag('${data['detection'] ?? '--'}'),
+                const SizedBox(height: 200),
+                Container(
+                  height: 55,
+                  width: 55,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.teal.shade400, Colors.teal.shade700],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    child: Center(
-                      child: TextButton(
-                        onPressed: () =>  Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Sampling(data: data,),
-                        ),
+                    borderRadius: BorderRadius.circular(40), 
+                  ),
+                  child: IconButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Sampling(data: data),
                       ),
-                        child: Center(
-                          child: Icon(
-                            FontAwesomeIcons.arrowRight,
-                            size: 20,
-                            color: AppColors.getColor(ListColors.c0),
-                          ),
-                        ),
-                      ),
+                    ),
+                    icon: const Icon(
+                      FontAwesomeIcons.arrowRight,
+                      size: 20,
+                      color: Colors.white,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
-  
-  _buildTag(String s) {
+
+  Widget _buildInfo(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: AppColors.getColor(ListColors.c2)),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(color: Colors.black54, fontSize: 14),
+              ),
+              Text(
+                value,
+                style: const TextStyle(fontSize: 15, color: Colors.black87),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTag(String s) {
     final sLower = s.toLowerCase();
     Color backGroundColor;
     Color textColor;
 
     switch (sLower) {
       case 'red':
-        backGroundColor = Colors.cyan.shade100;
-        textColor = Colors.cyan.shade800;
+        backGroundColor = Colors.cyan.shade600;
+        textColor = Colors.white;
         break;
       case 'visual':
-        backGroundColor = Colors.red.shade100;
-        textColor = Colors.red.shade800;
+        backGroundColor = Colors.red.shade600;
+        textColor = Colors.white;
         break;
       default:
-        backGroundColor = Colors.blue.shade300;
-        textColor = Colors.blue.shade900;
+        backGroundColor = Colors.blue.shade700;
+        textColor = Colors.white;
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: backGroundColor,
         borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Text(
         s,

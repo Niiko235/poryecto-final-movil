@@ -52,9 +52,10 @@ class _RemoteListJsonProvider {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> dataMap = jsonDecode(response.body);
-      print("✅ Datos recibidos: ${dataMap}");
+      print("✅ Datos recibidos del proyecto ${uuid} correctamente");
       return dataMap['data']['research'];
     } else {
+      print("❌ Error: ${response.body}");
       throw Exception('Error ${response.statusCode}: ${response.body}');
     }
   }

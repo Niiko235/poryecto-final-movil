@@ -33,7 +33,7 @@ class _ListRemoteProvider {
 
       if (response.statusCode == 200) {
         final decoded = jsonDecode(response.body);
-        print("✅ Datos recibidos: ${decoded}");
+        print("✅ Datos recibidos de la lista de investigaciones");
 
         // Algunos endpoints devuelven un array directamente
         if (decoded is List) return decoded;

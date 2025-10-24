@@ -10,7 +10,6 @@ class CardDashboard extends StatelessWidget {
   const CardDashboard({super.key, required this.data});
 
   final dynamic data;
-  final styleTitle = const TextStyle(fontWeight: FontWeight.w900, fontSize: 18);
 
   @override
   Widget build(BuildContext context) {
@@ -23,163 +22,212 @@ class CardDashboard extends StatelessWidget {
       formattedDate = 'Fecha N/A';
     }
 
-    return Container(
-      width: 340,
-      decoration: BoxDecoration(
-        gradient: AppGradients.getGradient(ListColors.linearBackground),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 25, right: 25, top: 12, bottom: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('${formattedDate}', style: TextStyle(fontSize: 20)),
-                _buildTag('Ejecución'),
-              ],
-            ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Investigation(uuid: data['uuid']),
           ),
-
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(15),
-              width: 340 * 0.66,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Text(
-                '${data['name']}',
-                textAlign: TextAlign.start,
-                softWrap: true,
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 26,
-                  height: 1.2,
-                ),
-              ),
+        );
+      },
+      child: Container(
+        width: 340,
+        margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        decoration: BoxDecoration(
+          gradient: AppGradients.getGradient(ListColors.linearBackground),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
-          ),
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Icon(FontAwesomeIcons.user, color: Colors.black, size: 20),
-                    SizedBox(width: 10),
-                    Flexible(
-                      child: Text(
-                        "Dr. Juan Guzman",
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 📅 Fecha y estado
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    formattedDate,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
                     ),
-                  ],
-                ),
-
-                SizedBox(height: 10),
-
-                Row(
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.locationDot,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    SizedBox(width: 10),
-                    Flexible(
-                      child: Text(
-                        '${data['locality']?['city'] ?? '-'}, ${data['locality']?['state'] ?? '-'}',
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          Padding(
-            padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 250,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.getColor(ListColors.c0),
-                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Center(
-                    child: TextButton(
-                      onPressed: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                Investigation(uuid: data['uuid']),
-                          ),
-                        ),
+                  _buildTag('Ejecución'),
+                ],
+              ),
 
-                        print("Navegando a detalles de ${data['uuid']}"),
-                      },
-                      child: Center(
-                        child: Text(
-                          "Ver más",
+              const SizedBox(height: 20),
+
+              // 📘 Título del proyecto
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  '${data['name']}',
+                  textAlign: TextAlign.start,
+                  softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                    color: Colors.black87,
+                    height: 1.3,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // 👤 Responsable
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    FontAwesomeIcons.solidUser,
+                    color: AppColors.getColor(ListColors.darkText),
+                    size: 20,
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Responsable",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            fontSize: 14,
                           ),
                         ),
+                        SizedBox(height: 2),
+                        Text("Dr. Juan Guzman", style: TextStyle(fontSize: 14)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 10),
+
+              // 📍 Localidad
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    FontAwesomeIcons.locationDot,
+                    color: AppColors.getColor(ListColors.darkText),
+                    size: 20,
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Localidad",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          '${data['locality']?['city'] ?? '-'}, ${data['locality']?['state'] ?? '-'}',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              // 🔘 Botón Ver más
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Investigation(uuid: data['uuid']),
                       ),
+                    );
+                  },
+                  icon: const Icon(Icons.arrow_forward_ios, size: 16),
+                  label: const Text(
+                    "Ver más",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black87,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  _buildTag(String s) {
+  Widget _buildTag(String s) {
     final sLower = s.toLowerCase();
-    Color backGroundColor;
+    Color backgroundColor;
     Color textColor;
 
     switch (sLower) {
+      case 'pendiente':
+        backgroundColor = Colors.green.shade100;
+        textColor = Colors.green.shade800;
+        break;
+      case 'finalizado':
+        backgroundColor = Colors.blue.shade100;
+        textColor = Colors.blue.shade800;
+        break;
       case 'ejecución':
-        backGroundColor = Colors.pink.shade100;
-        textColor = Colors.pink.shade800;
+        backgroundColor = Colors.pink.shade600;
+        textColor = Colors.white;
         break;
       default:
-        backGroundColor = Colors.blue.shade300;
-        textColor = Colors.blue.shade900;
+        backgroundColor = Colors.grey.shade200;
+        textColor = Colors.grey.shade800;
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: backGroundColor,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
-      child: Text(
-        s,
-        style: TextStyle(
-          color: textColor,
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-        ),
-      ),
+      child: Text(s, style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 12)),
     );
   }
 }
