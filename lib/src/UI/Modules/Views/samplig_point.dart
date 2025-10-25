@@ -33,6 +33,7 @@ class SampligPoint extends StatelessWidget {
     print(
       '🟠 Página de Sampling Details\nData punto muestreo físico mostrado correctamente',
     );
+    // print(data);
 
     final String formattedDate = 'Ene 01, 2023'; // Fecha fija para el mockup
     final double temperature = data['temperature'].toDouble();

@@ -16,7 +16,7 @@ class CardSpeciePoint extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Specie()),
+          MaterialPageRoute(builder: (context) => Specie(data: data)),
         );
       },
       child: Container(
@@ -53,12 +53,17 @@ class CardSpeciePoint extends StatelessWidget {
                   ],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: ImageRemote(
-                    imageUrl: '${data['images']?[0] ?? ''}',
-                    width: 100,
-                    height: 129,
+                  borderRadius: BorderRadius.circular(18),
+                  child: Image.network(
+                    'https://corsproxy.io/?https://cdn979857.fac.mil.co/sites/default/files/2018-06/guacamaya_ara_macao.jpg',
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      print(error);
+                      return Image.asset(
+                        'assets/image_fail.jpg',
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -127,7 +132,7 @@ class CardSpeciePoint extends StatelessWidget {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Specie(),
+                            builder: (context) => Specie(data: data),
                           ),
                         ),
                         icon: const Icon(
