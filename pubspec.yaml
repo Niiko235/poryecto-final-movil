@@ -18,6 +18,7 @@ dependencies:
   provider: ^6.1.5+1              # Gestión de estado y dependencias
   carousel_slider: ^5.1.1         # Carrusel de imágenes
   font_awesome_flutter: ^10.7.0   # Iconos 
+  smooth_page_indicator: ^1.0.0   # Indicadores de página animados
 
 dev_dependencies:
   flutter_test:

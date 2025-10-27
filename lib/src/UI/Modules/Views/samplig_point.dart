@@ -30,13 +30,18 @@ class SampligPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+      '🟠 Página de Sampling Details\nData punto muestreo físico mostrado correctamente',
+    );
+    // print(data);
+
     final String formattedDate = 'Ene 01, 2023'; // Fecha fija para el mockup
     final double temperature = data['temperature'].toDouble();
     final String luminosity = data['luminosity'];
     final String precipitation = data['precipitationState'];
     final String overallConditions = data['overallConditions'];
 
-    const Color primaryColor = Color(0xFF00796B);
+    // const Color primaryColor = Color(0xFF00796B);
 
     return Scaffold(
       // La AppBar utiliza el color principal
@@ -132,4 +137,7 @@ class SampligPoint extends StatelessWidget {
 
     return listaJson;
   }
+
+
+
 }

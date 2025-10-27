@@ -1,56 +1,29 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:proyecto_final_movil/Global/Colors/colors_app.dart';
 import 'package:proyecto_final_movil/Global/Enums/list_colors.dart';
 
-// --- Datos JSON de la Guacamaya (Usarías un modelo real aquí) ---
-final Map<String, dynamic> guacamayaData = {
-  "_id": "688c2c838bddcab4e2c0bd2a",
-  "species": "Guacamaya",
-  "abundance": 5,
-  "detection": "Captura-red",
-  "distance": 10.5,
-  "males": 2,
-  "females": 3,
-  "UndeterminedSexCount": 0,
-  "numberAdults": 4,
-  "JuvenileCount": 1,
-  "activity": "Canto",
-  "substrate": "Arboreo",
-  "stratum": "Aereo",
-  "observation": "Individuo posado en rama alta",
-  "morphology": {
-    "billLength": 10.2,
-    "wingChord": 1.0,
-    "tarsusLength": 3.0,
-    "tailLength": 4.0,
-    "totalLength": 2.0,
-    "_id": "688c2c838bddcab4e2c0bd2b",
-  },
-  "images": [
-    "https://api-bird-field-logs.coderhub.run/public/species/584ef8dd-ffdc-472c-84f7-b1d4541f98b7.jpg",
-    "https://api-bird-field-logs.coderhub.run/public/species/82171fa6-7d65-4823-93ea-df26a941cf54.jpg",
-    "https://api-bird-field-logs.coderhub.run/public/species/408a112d-e392-4fbc-911b-2bb70282d519.jpg",
-  ],
-  "sample": "688c2c738bddcab4e2c0bd20",
-  "uuid": "afd7d1d8-62cc-4fe6-bdcb-d8e56b0a7932",
-  "createdAt": "2025-08-01T02:54:59.749Z",
-  "updatedAt": "2025-08-01T02:54:59.749Z",
-};
-// -----------------------------------------------------------------
-
 class Specie extends StatelessWidget {
-  const Specie({super.key});
-
+  final dynamic data;
+  const Specie({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
     // Extracción de datos para fácil acceso
-    final String speciesName =
-        guacamayaData['species'] ?? 'Especie Desconocida';
-    final List<String> images = List<String>.from(
-      guacamayaData['images'] ?? ['assets/images/default_image.jpg'],
+    print(
+      '🟢 Página de Detalles de la Especie\nData especie mostrado correctamente',
     );
-    final Map<String, dynamic> morphology = guacamayaData['morphology'] ?? {};
-
+    print(data);
+    final String speciesName = data['species'] ?? 'Nombre Desconocido';
+    final List<String> images = List<String>.from(
+      [
+            'https://corsproxy.io/?https://cdn979857.fac.mil.co/sites/default/files/2018-06/guacamaya_ara_macao.jpg',
+            'https://corsproxy.io/?https://fundacionjcangelcraftacparalaeducacion.wordpress.com/wp-content/uploads/2018/09/guacamaya-ara-macao.jpg',
+            'https://corsproxy.io/?https://static.wikia.nocookie.net/republica-colombia/images/c/c6/Guacamaya_Bandera.jpg/revision/latest?cb=20240323185141&path-prefix=es',
+          ] ??
+          ['assets/images/default_image.jpg'],
+    );
+    final Map<String, dynamic> morphology = data['morphology'] ?? {};
     return Scaffold(
       // Estilo de AppBar similar al mockup
       appBar: AppBar(
@@ -62,30 +35,30 @@ class Specie extends StatelessWidget {
             fontSize: 28,
           ),
         ),
-        backgroundColor: AppColors.getColor(
-          ListColors.action,
-        ), // Color de fondo verde oscuro
+        backgroundColor: AppColors.getColor(ListColors.action),
+        // Color de fondo verde oscuro
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-
       // Cuerpo deslizable para todo el contenido
       body: Stack(
         children: [
           // 1. Fondo Curvado
           Container(
-            height: 160, // Altura para cubrir la Card de Ambiente
+            height: 160,
+            // Altura para cubrir la Card de Ambiente
             decoration: const BoxDecoration(
               color: Color(0xFF00916E),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40), // Curva similar al mockup
-                bottomRight: Radius.circular(40), // Curva similar al mockup
+                bottomLeft: Radius.circular(40),
+                // Curva similar al mockup
+                bottomRight: Radius.circular(40),
+                // Curva similar al mockup
               ),
             ),
           ),
-
           // 2. Contenido Principal (Scrollable)
           SingleChildScrollView(
             child: Padding(
@@ -94,22 +67,20 @@ class Specie extends StatelessWidget {
                 left: 36.0,
                 right: 36.0,
               ),
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // 1. Carrusel de Imágenes (PageView)
                   _buildImageCarousel(images, speciesName),
-
                   // Espacio entre el carrusel y los detalles
                   const SizedBox(height: 24),
                   Container(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(30.0),
                     margin: const EdgeInsets.only(bottom: 24.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Colors.black12,
                           blurRadius: 8,
@@ -118,85 +89,132 @@ class Specie extends StatelessWidget {
                       ],
                     ),
                     child: Column(
+                      
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // 2. Título de la Especie y tags
-                        Text(
-                          speciesName,
-                          style: const TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        // --- Nombre de la especie ---
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.eco,
+                              color: Color(0xFF00916E),
+                              size: 28,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                speciesName,
+                                style: const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF1A1A1A),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 8),
 
+                        const SizedBox(height: 12),
+
+                        // --- Tags de tipo de detección y estrato ---
                         Wrap(
                           spacing: 8.0,
+                          runSpacing: 6.0,
                           children: [
                             _buildTag(
-                              guacamayaData['detection'] ?? '',
-                            ), // Captura-red
-                            _buildTag(guacamayaData['stratum'] ?? ''), // Aereo
+                              data['detection'] ?? '',
+                              const Color(0xFF6A1B9A),
+                            ),
+                            _buildTag(
+                              data['stratum'] ?? '',
+                              const Color(0xFF00916E),
+                            ),
                           ],
                         ),
 
                         const SizedBox(height: 24),
+                        const Divider(thickness: 1, color: Color(0xFFE0E0E0)),
 
-                        // 3. Descripción y Observación
-                        _buildSectionTitle('Descripción del Avistamiento'),
+                        // --- Descripción del Avistamiento ---
+                        _buildSectionTitle('📝 Descripción del Avistamiento'),
                         _buildDetailText(
                           'Observación: ',
-                          guacamayaData['observation'] ?? '',
+                          data['observation'] ?? 'No registrada',
                         ),
                         _buildDetailText(
                           'Actividad: ',
-                          guacamayaData['activity'] ?? '',
+                          data['activity'] ?? 'Sin información',
                         ),
                         _buildDetailText(
                           'Sustrato: ',
-                          guacamayaData['substrate'] ?? '',
+                          data['substrate'] ?? 'Sin información',
                         ),
 
                         const SizedBox(height: 24),
+                        const Divider(thickness: 1, color: Color(0xFFE0E0E0)),
 
-                        // 4. Detalles del Censo
-                        _buildSectionTitle('Detalles del Censo'),
+                        // --- Detalles del Censo ---
+                        _buildSectionTitle('📊 Detalles del Censo'),
                         _buildDetailText(
                           'Abundancia Total: ',
-                          '${guacamayaData['abundance']} individuos',
+                          '${data['abundance'] ?? '-'} individuos',
                         ),
                         _buildDetailText(
                           'Distancia: ',
-                          '${guacamayaData['distance']} metros',
-                        ),
-                        _buildSubSectionTitle('Composición por Sexo'),
-                        _buildDetailText(
-                          'Machos: ',
-                          '${guacamayaData['males']}',
-                        ),
-                        _buildDetailText(
-                          'Hembras: ',
-                          '${guacamayaData['females']}',
+                          '${data['distance'] ?? '-'} metros',
                         ),
 
-                        _buildSubSectionTitle('Composición por Edad'),
-                        _buildDetailText(
-                          'Adultos: ',
-                          '${guacamayaData['numberAdults']}',
+                        _buildSubSectionTitle('Composición por Sexo'),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildStatBox(
+                                'Machos',
+                                '${data['males'] ?? 0}',
+                                Colors.blueAccent,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _buildStatBox(
+                                'Hembras',
+                                '${data['females'] ?? 0}',
+                                Colors.pinkAccent,
+                              ),
+                            ),
+                          ],
                         ),
-                        _buildDetailText(
-                          'Juveniles: ',
-                          '${guacamayaData['JuvenileCount']}',
+
+                        const SizedBox(height: 16),
+                        _buildSubSectionTitle('Composición por Edad'),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildStatBox(
+                                'Adultos',
+                                '${data['numberAdults'] ?? 0}',
+                                Colors.teal,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _buildStatBox(
+                                'Juveniles',
+                                '${data['JuvenileCount'] ?? 0}',
+                                Colors.orangeAccent,
+                              ),
+                            ),
+                          ],
                         ),
 
                         const SizedBox(height: 24),
+                        const Divider(thickness: 1, color: Color(0xFFE0E0E0)),
 
-                        // 5. Morfología
+                        // --- Morfología ---
                         if (morphology.isNotEmpty) ...[
-                          _buildSectionTitle('Morfología (en cm)'),
+                          _buildSectionTitle('📏 Morfología (en cm)'),
                           _buildMorphologyTable(morphology),
                         ],
-
                         const SizedBox(height: 30),
                       ],
                     ),
@@ -211,102 +229,102 @@ class Specie extends StatelessWidget {
   }
 
   // --- Widgets de Ayuda ---
-
   // Crea el carrusel de imágenes con la vista de página deslizable
+  // --- Carrusel nativo con HeroLayout ---
   Widget _buildImageCarousel(List<String> images, String speciesName) {
     return Container(
-      height: 300, // Altura fija para el carrusel
-      decoration: BoxDecoration(
-        color: Colors.grey[300], // Fondo de carga
-        borderRadius: BorderRadius.circular(16), // Bordes redondeados
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 5.0,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          // Carrusel (PageView)
-          PageView.builder(
-            itemCount: images.length,
-            itemBuilder: (context, index) {
+      height: 400,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
+      child:
+          // --- Carrusel moderno con animación Hero ---
+          CarouselView(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            itemExtent: 320,
+            shrinkExtent: 0.8,
+            itemSnapping: true,
+            elevation: 5.0,
+
+            // layout: HeroLayout(), // 💫 animación elegante nativa
+            children: List.generate(images.length, (index) {
+              final imageUrl = images[index];
               return ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.network(
-                  images[index],
+                  imageUrl,
                   fit: BoxFit.cover,
-                  width: double.infinity,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
+                  loadingBuilder: (context, child, progress) {
+                    if (progress == null) return child;
                     return const Center(child: CircularProgressIndicator());
                   },
                   errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.broken_image, size: 50),
-                          Text(
-                            'Imagen no disponible',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 60,
+                          color: Colors.grey,
+                        ),
                       ),
                     );
                   },
                 ),
               );
+            }),
+            onTap: (index) {
+              // Si deseas hacer algo al tocar una imagen (por ejemplo, abrir en pantalla completa)
+              debugPrint("Imagen seleccionada: ${images[index]}");
             },
           ),
+    );
+  }
 
-          // Información sobrepuesta (similar al mockup)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                // Gradiente para mejorar la legibilidad del texto
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [Colors.black.withOpacity(0.7), Colors.transparent],
-                ),
-              ),
-              child: Text(
-                speciesName,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ],
+  // --- Tag con color dinámico ---
+  Widget _buildTag(String text, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.4)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color.withValues(alpha: 0.9),
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
 
-  // Widget para crear los tags (etiquetas)
-  Widget _buildTag(String text) {
+  // --- Caja pequeña con estadística ---
+  Widget _buildStatBox(String label, String value, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: 12),
+
       decoration: BoxDecoration(
-        color: const Color(0xFF6A1B9A), // Color morado oscuro para el tag
-        borderRadius: BorderRadius.circular(12),
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(16),
+            
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 2.0),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.white, fontSize: 12),
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 27,
+              fontWeight: FontWeight.bold,
+              color: color.withValues(alpha: 0.5),
+            ),
+          ),
+          Text(
+            label,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: color.withValues(alpha: 0.9)),
+          ),
+        ],
       ),
     );
   }
@@ -365,7 +383,6 @@ class Specie extends StatelessWidget {
       {'key': 'tailLength', 'label': 'Largo de la Cola'},
       {'key': 'totalLength', 'label': 'Largo Total'},
     ];
-
     return Table(
       columnWidths: const {0: FlexColumnWidth(2), 1: FlexColumnWidth(1)},
       border: TableBorder.all(color: Colors.grey.shade300),
@@ -389,14 +406,3 @@ class Specie extends StatelessWidget {
     );
   }
 }
-
-// Nota: Para probar esta clase, deberías usarla dentro de un StatelessWidget o StatefulWidget 
-// y llamarla, por ejemplo:
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: GuacamayaDetailScreen(),
-//     );
-//   }
-// }
